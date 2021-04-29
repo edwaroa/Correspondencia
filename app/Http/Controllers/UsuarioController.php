@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
-        return view('usuarios.index');
+        $usuarios = User::all();
+        return view('usuarios.index')->with('usuarios',$usuarios);
     }
 
     public function create()
