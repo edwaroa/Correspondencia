@@ -258,7 +258,11 @@ return [
             'submenu' =>[
                 [
                 'text' => 'Listar',
-                'url' => '#',
+                'route' => 'usuarios.index',
+                ],
+                [
+                'text' => 'Crear',
+                'route' => 'usuarios.create',
                 ]
             ],
         ],

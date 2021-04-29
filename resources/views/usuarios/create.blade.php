@@ -3,7 +3,7 @@
 @section('title', '| Usuarios')
 
 @section('content_header')
-    <h1>Administrar Usuarios</h1>
+    <h1>Crear Usuario</h1>
 @stop
 
 @section('content')
