@@ -36,7 +36,9 @@ class UsuariosSeeder extends Seeder
             'documento' => '1098811453',
             'nombre' => 'Edwar',
             'apellido' => 'Roa',
+            'iniciales' => 'EROA',
             'rol_id' => 1,
+            'area' => 'Sistemas',
             'email' => 'edwaroa10@gmail.com',
             'password' => Hash::make('123456789')
         ]);
