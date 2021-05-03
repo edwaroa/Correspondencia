@@ -21,7 +21,7 @@ class CreateRadicadosTable extends Migration
             $table->string('numero_certificado_correspondencia');
             $table->string('fecha_oficio');
             $table->string('ciudad_remitente');
-            $table->string('detalle');
+            $table->text('detalle');
             $table->string('inicial');
             $table->string('usuario');
             $table->string('ciudad_destino');

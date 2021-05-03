@@ -22,6 +22,7 @@
                     <tr>
                         <th scole="col">Documento</th>
                         <th scole="col">Nombre Completo</th>
+                        <th scole="col">Iniciales</th>
                         <th scole="col">Correo electronico</th>
                         <th scole="col">Rol</th>
                         <th scole="col">Opciones</th>
@@ -32,8 +33,9 @@
                     <tr>
                         <td>{{$usuario->documento}}</td>
                         <td>{{$usuario->nombre}} {{ $usuario->apellido }}</td>
+                        <td>{{$usuario->iniciales}}</td>
                         <td>{{$usuario->email}}</td>
-                        <td>{{$usuario->rol_id}}</td>
+                        <td>{{$usuario->rol->nombre}}</td>
                         <td>
                             <div class="btn-group">
                                 <a href="{{route('usuarios.show',['user'=>$usuario->id])}}" class="btn btn-primary rounded">

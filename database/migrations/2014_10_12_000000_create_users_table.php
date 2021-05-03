@@ -20,8 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->string('iniciales');
-            $table->string('rol_id');
+            $table->foreignId('rol_id')->references('id')->on('rols')->nullable();
             $table->string('area');
+            $table->string('imagen');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

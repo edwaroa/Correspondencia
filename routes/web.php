@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,3 +34,5 @@ Route::get('/usuarios/{user}', [App\Http\Controllers\UsuarioController::class, '
 Route::get('/usuarios/{user}/edit', [App\Http\Controllers\UsuarioController::class, 'edit'])->name('usuarios.edit');
 Route::put('/usuarios/{user}', [App\Http\Controllers\UsuarioController::class, 'update'])->name('usuarios.update');
 Route::get('/usuarios/{user}/eliminar', [App\Http\Controllers\UsuarioController::class, 'eliminar'])->name('usuarios.delete');
+
+Route::get('/dependencias', [App\Http\Controllers\DependenciaController::class, 'index'])->name('dependencias.index');

@@ -36,6 +36,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function rol(){
+        return $this->belongsTo(Rol::class, 'rol_id');
+    }
     /**
      * The attributes that should be cast to native types.
      *
