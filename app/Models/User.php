@@ -22,6 +22,8 @@ class User extends Authenticatable
         'nombre',
         'apellido',
         'rol_id',
+        'area',
+        'imagen',
         'email',
         'password',
     ];
@@ -36,8 +38,20 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function getFullNameAttribute()
+    {
+        if (is_null($this->apellido)) {
+            return "{$this->nombre}";
+        }
+
+        return "{$this->nombre} {$this->apellido}";
+    }
+
     public function rol(){
         return $this->belongsTo(Rol::class, 'rol_id');
+    }
+    public function dependencia(){
+        return $this->belongsTo(Dependencia::class, 'area');
     }
     /**
      * The attributes that should be cast to native types.
@@ -49,11 +63,11 @@ class User extends Authenticatable
     ];
 
     public function adminlte_image(){
-        return 'https://picsum.photos/300/300';
+        return "/storage/{$this->imagen}";
     }
     public function adminlte_desc()
     {
-        return "Administrador";
+        return $this->fullname;
     }
     public function adminlte_profile_url()
     {

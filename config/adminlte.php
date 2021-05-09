@@ -252,7 +252,7 @@ return [
             'label'       => 4,
             'label_color' => 'success',
         ],
-        ['header' => 'Configuración de Cuenta'],
+        ['header' => 'Menú Principal'],
         [
             'text'=> 'Usuarios',
             'submenu' =>[
@@ -263,6 +263,19 @@ return [
                 [
                 'text' => 'Crear',
                 'route' => 'usuarios.create',
+                ]
+            ],
+        ],
+        [
+            'text'=> 'Dependencias',
+            'submenu' =>[
+                [
+                'text' => 'Listar',
+                'route' => 'dependencias.index',
+                ],
+                [
+                'text' => 'Crear',
+                'route' => 'dependencias.create',
                 ]
             ],
         ],

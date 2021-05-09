@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -33,6 +33,12 @@ Route::post('/usuarios', [App\Http\Controllers\UsuarioController::class, 'store'
 Route::get('/usuarios/{user}', [App\Http\Controllers\UsuarioController::class, 'show'])->name('usuarios.show');
 Route::get('/usuarios/{user}/edit', [App\Http\Controllers\UsuarioController::class, 'edit'])->name('usuarios.edit');
 Route::put('/usuarios/{user}', [App\Http\Controllers\UsuarioController::class, 'update'])->name('usuarios.update');
-Route::get('/usuarios/{user}/eliminar', [App\Http\Controllers\UsuarioController::class, 'eliminar'])->name('usuarios.delete');
+Route::post('/usuarios/{user}', [App\Http\Controllers\UsuarioController::class, 'estado'])->name('usuarios.estado');
 
 Route::get('/dependencias', [App\Http\Controllers\DependenciaController::class, 'index'])->name('dependencias.index');
+Route::get('/dependencias/create', [App\Http\Controllers\DependenciaController::class, 'create'])->name('dependencias.create');
+Route::post('/dependencias', [App\Http\Controllers\DependenciaController::class, 'store'])->name('dependencias.store');
+Route::get('/dependencias/{dependencia}', [App\Http\Controllers\DependenciaController::class, 'show'])->name('dependencias.show');
+Route::get('/dependencias/{dependencia}/edit', [App\Http\Controllers\DependenciaController::class, 'edit'])->name('dependencias.edit');
+Route::put('/dependencias/{dependencia}', [App\Http\Controllers\DependenciaController::class, 'update'])->name('dependencias.update');
+Route::post('/dependencias/{dependencia}', [App\Http\Controllers\DependenciaController::class, 'estado'])->name('dependencias.estado');
