@@ -18,8 +18,6 @@ class CreateDependenciasTable extends Migration
             $table->string('codigo');
             $table->string('nombre');
             $table->string('descripcion');
-            $table->string('tipo_dependencia');
-            $table->string('usuario_mensaje');
             $table->string('estado')->default('Activada');
             $table->timestamps();
         });

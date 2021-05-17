@@ -17,9 +17,12 @@ class DependenciasSeeder extends Seeder
         $dependencia = Dependencia::create([
             'codigo' => '1',
             'nombre' => 'Sistemas',
-            'descripcion' => 'Area encargada del soporte tecnico de la empresa',
-            'tipo_dependencia' => 'Dependencia administrativa',
-            'usuario_mensaje' => 'No hay mensaje registrado'
+            'descripcion' => 'Area encargada del soporte tecnico de la empresa'
+        ]);
+        $dependencia = Dependencia::create([
+            'codigo' => '2',
+            'nombre' => 'Correspondencia',
+            'descripcion' => 'Area encargada de la Correspondencia interna y externa de la empresa'
         ]);
     }
 }

@@ -27,8 +27,9 @@ class UsuarioController extends Controller
 
     public function create()
     {
+        $dependencias=Dependencia::all(['id','nombre']);
         $roles=Rol::all(['id','nombre']);
-        return view('usuarios.create')->with('roles',$roles);
+        return view('usuarios.create')->with('roles',$roles)->with('dependencias',$dependencias);
     }
 
     public function store(Request $request)

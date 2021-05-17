@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dependencia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class DependenciaController extends Controller
@@ -28,7 +29,18 @@ class DependenciaController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $data=request()->validate([
+            'codigo'=>'required|string|max:10',
+            'nombre'=>'required|string|max:50',
+            'descripcion'=>'required|string|max:255'
+        ]);
+
+        DB::table('dependencias')->insert([
+            'codigo'=>$data['codigo'],
+            'nombre'=>$data['nombre'],
+            'descripcion'=>$data['descripcion']
+        ]);
+        return redirect()->action([DependenciaController::class, 'index']);
     }
 
     public function show(Dependencia $dependencia)
@@ -40,9 +52,7 @@ class DependenciaController extends Controller
     public function edit(Dependencia $dependencia)
     {
         if(Auth::user()->rol->nombre == 'Super Admin') {
-            // Trayendo el id y el nombre de todos los roles
-            $dependencias=Dependencia::all(['id','nombre']);
-            return view('dependencias.edit',compact('dependencias'));
+            return view('dependencias.edit',compact('dependencia'));
         }else {
             return redirect()->action([DependenciaController::class, 'index']);
         }
@@ -51,7 +61,17 @@ class DependenciaController extends Controller
 
     public function update(Request $request, Dependencia $dependencia)
     {
-        //
+        $data=request()->validate([
+            'codigo'=>'required|string|max:10',
+            'nombre'=>'required|string|max:50',
+            'descripcion'=>'required|string|max:255'
+        ]);
+
+        $dependencia->codigo=$data['codigo'];
+        $dependencia->nombre=$data['nombre'];
+        $dependencia->descripcion=$data['descripcion'];
+        $dependencia->save();
+        return redirect()->action([DependenciaController::class, 'index']);
     }
 
     public function destroy(Dependencia $dependencia)

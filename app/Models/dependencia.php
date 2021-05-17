@@ -12,8 +12,6 @@ class dependencia extends Model
         'codigo',
         'nombre',
         'descripcion',
-        'tipo_dependencia',
-        'usuario_mensaje',
         'estado',
     ];
 

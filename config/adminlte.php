@@ -166,7 +166,7 @@ return [
     |
     */
 
-    'right_sidebar' => true,
+    'right_sidebar' => false,
     'right_sidebar_icon' => 'fas fa-cogs',
     'right_sidebar_theme' => 'dark',
     'right_sidebar_slide' => true,
@@ -226,14 +226,14 @@ return [
     'menu' => [
         [
             'text' => 'Buscar',
-            'search' => true,
+            'search' => false,
             'topnav' => true,
         ],
         [
             'text' => 'Mensajes',
             'url' => '#',
             'topnav_right' => true,
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fa fa-envelope',
         ],
         [
             'text' => 'blog',
@@ -245,49 +245,61 @@ return [
             'route'  => 'home',
             'icon' => 'fas fa-fw fa-home'
         ],
-        [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
+        // [
+        //     'text'        => 'pages',
+        //     'url'         => 'admin/pages',
+        //     'icon'        => 'far fa-fw fa-file',
+        //     'label'       => 4,
+        //     'label_color' => 'success',
+        // ],
         ['header' => 'Menú Principal'],
         [
             'text'=> 'Usuarios',
+            'icon' => 'fa fa-users',
             'submenu' =>[
                 [
                 'text' => 'Listar',
+                'icon' => 'fa fa-list',
                 'route' => 'usuarios.index',
                 ],
                 [
                 'text' => 'Crear',
+                'icon' => 'fa fa-user-plus',
                 'route' => 'usuarios.create',
                 ]
             ],
         ],
         [
             'text'=> 'Dependencias',
+            'icon' => 'fa fa-suitcase',
             'submenu' =>[
                 [
                 'text' => 'Listar',
+                'icon' => 'fa fa-list',
                 'route' => 'dependencias.index',
                 ],
                 [
                 'text' => 'Crear',
+                'icon' => 'fa fa-plus',
                 'route' => 'dependencias.create',
                 ]
             ],
         ],
         [
-            'text' => 'Perfil',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text'=> 'Planillas',
+            'icon' => 'fa fa-list-alt',
+            'submenu' =>[
+                [
+                'text' => 'Listar',
+                'icon' => 'fa fa-list',
+                'route' => 'planillas.index',
+                ],
+                [
+                'text' => 'Crear',
+                'icon' => 'fa fa-plus',
+                'route' => 'planillas.create',
+                ]
+            ],
         ],
         [
             'text'    => 'multilevel',
@@ -327,22 +339,22 @@ return [
                 ],
             ],
         ],
-        ['header' => 'labels'],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+        // ['header' => 'labels'],
+        // [
+        //     'text'       => 'important',
+        //     'icon_color' => 'red',
+        //     'url'        => '#',
+        // ],
+        // [
+        //     'text'       => 'warning',
+        //     'icon_color' => 'yellow',
+        //     'url'        => '#',
+        // ],
+        // [
+        //     'text'       => 'information',
+        //     'icon_color' => 'cyan',
+        //     'url'        => '#',
+        // ],
     ],
 
     /*

@@ -14,7 +14,8 @@ class PlanillaController extends Controller
 
     public function index()
     {
-        //
+        $planillas=Planilla::all();
+        return view('planillas.index', compact('planillas'));
     }
 
     /**
@@ -72,14 +73,19 @@ class PlanillaController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Planilla  $planilla
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Planilla $planilla)
+    public function estado(Request $request,Planilla $planilla)
     {
-        //
+        //Autorizar para que pueda modificar
+       // $this->authorize('update', $actividad);
+        if($planilla->estado=='Desactivada'){
+            //Leer el nuevo estado
+            $planilla->estado='Activada';
+            $planilla->save();
+        }
+        else{
+            $planilla->estado='Desactivada';
+            $planilla->save();
+        }
+        return redirect()->action([PlanillaController::class, 'index']);
     }
 }

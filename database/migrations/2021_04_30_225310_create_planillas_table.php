@@ -15,16 +15,16 @@ class CreatePlanillasTable extends Migration
     {
         Schema::create('planillas', function (Blueprint $table) {
             $table->id();
-            $table->string('dependencias');
             $table->string('numero_planilla');
-            $table->string('tipo_planilla');
+            $table->string('dependencias');
+            $table->foreignId('tipo_planilla')->references('id')->on('tipo_planillas')->nullable();
             $table->string('tipo_envio');
             $table->string('tipo_documento');
             $table->string('autoridad_destino');
             $table->string('contenido_destino');
             $table->string('direccion');
             $table->string('ciudad');
-            $table->string('despartamento');
+            $table->string('departamento');
             $table->string('peso');
             $table->string('cantidad');
             $table->string('valor_declarado');
