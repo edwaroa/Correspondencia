@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $usuarios=User::where('estado','Activado');
+        $users = $usuarios->count();
+        $widget = [
+            'users' => $users
+        ];
+        return view('home', compact('widget'));
     }
 }

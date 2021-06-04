@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Planilla;
+use App\Models\Dependencia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PlanillaController extends Controller
 {
@@ -25,7 +29,10 @@ class PlanillaController extends Controller
      */
     public function create()
     {
-        //
+        $usuarios=User::all(['id','nombre']);
+        $dependencias=Dependencia::all(['id','nombre']);
+        $fecha_actual=Carbon::now()->format('d-m-Y');
+        return view('planillas.create',compact('dependencias','usuarios','fecha_actual'));
     }
 
     /**
@@ -36,7 +43,33 @@ class PlanillaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data=request()->validate([
+            'tipo_documento'=>'required',
+            'documento'=>'required|string|max:50',
+            'nombre'=>'required|string|max:50',
+            'apellido'=>'required|string|max:50',
+            'iniciales'=>'required|string|min:3|max:8',
+            'rol'=>'required',
+            'area'=>'required',
+            'imagen'=>'required|image',
+            'email'=>'required|email|unique:users',
+            'password'=>'required','min:8','max:12',
+        ]);
+
+        $ruta_imagen= $request['imagen']->store('imagen-usuarios', 'public');
+        //Ajustar tamaño
+        DB::table('users')->insert([
+            'tipo_documento'=>$data['tipo_documento'],
+            'documento'=>$data['documento'],
+            'nombre'=>$data['nombre'],
+            'apellido'=>$data['apellido'],
+            'iniciales'=>$data['iniciales'],
+            'rol_id'=>$data['rol'],
+            'area'=>$data['area'],
+            'imagen'=>$ruta_imagen,
+            'email' => $data['email'],
+        ]);
+        return redirect()->action([PlanillaController::class, 'index']);
     }
 
     /**

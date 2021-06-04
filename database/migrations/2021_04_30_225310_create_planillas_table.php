@@ -16,7 +16,7 @@ class CreatePlanillasTable extends Migration
         Schema::create('planillas', function (Blueprint $table) {
             $table->id();
             $table->string('numero_planilla');
-            $table->string('dependencias');
+            $table->foreignId('id_dependencias')->references('id')->on('dependencias')->nullable();
             $table->foreignId('tipo_planilla')->references('id')->on('tipo_planillas')->nullable();
             $table->string('tipo_envio');
             $table->string('tipo_documento');
