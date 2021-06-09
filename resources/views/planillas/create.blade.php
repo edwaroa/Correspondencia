@@ -30,9 +30,9 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
                         <div class="form-group focused">
-                            <label for="nombre" class="form-control-label">{{ __('Número de la Planilla') }}</label>
-                            <input type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" id="nombre" value="{{ old('nombre') }}" placeholder="Número de la Planillan">
-                            @error('nombre')
+                            <label for="numero_planilla" class="form-control-label">{{ __('Número de la Planilla') }}</label>
+                            <input type="text" class="form-control @error('numero_planilla') is-invalid @enderror" name="numero_planilla" id="numero_planilla" value="{{ old('numero_planilla') }}" placeholder="Número de la Planilla">
+                            @error('numero_planilla')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -59,22 +59,54 @@
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <div class="form-group focused">
-                            <label for="envio" class="form-control-label">{{ __('Tipo de Envío') }}</label>
-                            <input type="text" class="form-control @error('envio') is-invalid @enderror" name="envio" id="envio" value="{{ old('envio') }}" placeholder="Tipo de Envío">
-                            @error('envio')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                            <label for="tipo_envio" class="form-control-label">{{ __('Tipo de Envío') }}</label>
+                            <select name="tipo_envio" id="tipo_envio" class="form-control @error('tipo_envio') is-invalid @enderror">
+                                <option value="" selected disabled>-- Seleccione un Tipo de Envío --</option>
+                                @foreach ($tipoenvios as $tipoenvio)
+                                    <option value="{{ $tipoenvio->id }}" {{ old('tipo_envio') == $tipoenvio->id ? 'selected' : '' }}>
+                                        {{ $tipoenvio->nombre }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('tipo_envio')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <div class="form-group focused">
-                            <label for="documento" class="form-control-label">{{ __('Tipo de documento') }}</label>
-                            <input type="text" class="form-control @error('documento') is-invalid @enderror" name="documento" id="documento" value="{{ old('documento') }}" placeholder="Tipo de documento">
-                            @error('documento')
+                            <label for="tipo_planilla" class="form-control-label">{{ __('Tipo de Planilla') }}</label>
+                            <select name="tipo_planilla" id="tipo_planilla" class="form-control @error('tipo_planilla') is-invalid @enderror">
+                                <option value="" selected disabled>-- Seleccione el Tipo de Planilla --</option>
+                                @foreach ($tipoplanillas as $tipoplanilla)
+                                    <option value="{{ $tipoplanilla->id }}" {{ old('tipo_planilla') == $tipoplanilla->id ? 'selected' : '' }}>
+                                        {{ $tipoplanilla->nombre }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('tipo_planilla')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group focused">
+                            <label for="tipo_destino" class="form-control-label">{{ __('Tipo de Destino') }}</label>
+                            <select name="tipo_destino" id="tipo_destino" class="form-control @error('tipo_destino') is-invalid @enderror">
+                                <option value="" selected disabled>-- Seleccione un Tipo de Destino --</option>
+                                @foreach ($tipodestinos as $tipodestino)
+                                    <option value="{{ $tipodestino->id }}" {{ old('tipo_destino') == $tipodestino->id ? 'selected' : '' }}>
+                                        {{ $tipodestino->nombre }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('tipo_destino')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -85,9 +117,9 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-12">
                         <div class="form-group focused">
-                            <label for="destino" class="form-control-label">{{ __('Autoridad de Destino') }}</label>
-                            <input type="text" class="form-control @error('destino') is-invalid @enderror" name="destino" id="destino" value="{{ old('destino') }}" placeholder="Autoridad de Destino">
-                            @error('destino')
+                            <label for="autoridad_destino" class="form-control-label">{{ __('Autoridad de Destino') }}</label>
+                            <input type="text" class="form-control @error('autoridad_destino') is-invalid @enderror" name="autoridad_destino" id="autoridad_destino" value="{{ old('autoridad_destino') }}" placeholder="Autoridad de Destino">
+                            @error('autoridad_destino')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -210,7 +242,7 @@
                                 <option value="" selected disabled>-- Seleccione un Usuario --</option>
                                 @foreach ($usuarios as $usuario)
                                     <option value="{{ $usuario->id }}" {{ old('usuario_entrega') == $usuario->id ? 'selected' : '' }}>
-                                        {{ $usuario->nombre }}
+                                    {{ $usuario->fullname}}
                                     </option>
                                 @endforeach
                             </select>
@@ -224,7 +256,7 @@
                     <div class="col-lg-6">
                         <div class="form-group focused">
                             <label for="fecha_entrega" class="form-control-label">{{ __('Fecha de Entrega') }}</label>
-                            <input class="form-control @error('fecha_entrega') is-invalid @enderror" name="fecha_entrega" type="text" id="fecha_entrega" value="{{ $fecha_actual }}" readonly>
+                            <input class="form-control @error('fecha_entrega') is-invalid @enderror" name="fecha_entrega" type="date" id="fecha_entrega" value="{{ $fecha_actual }}">
                             @error('fecha_entrega')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -241,7 +273,7 @@
                                 <option value="" selected disabled>-- Seleccione un Usuario --</option>
                                 @foreach ($usuarios as $usuario)
                                     <option value="{{ $usuario->id }}" {{ old('usuario_recibe') == $usuario->id ? 'selected' : '' }}>
-                                        {{ $usuario->nombre }}
+                                        {{ $usuario->fullname}}
                                     </option>
                                 @endforeach
                             </select>
@@ -254,9 +286,9 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group focused">
-                            <label for="fecha_final" class="form-control-label">{{ __('Fecha Recibe') }}</label>
-                            <input class="form-control @error('fecha_final') is-invalid @enderror" name="fecha_final" type="text" id="fecha_final" value="{{ $fecha_actual}}" readonly>
-                            @error('fecha_final')
+                            <label for="fecha_recibe" class="form-control-label">{{ __('Fecha Recibe') }}</label>
+                            <input class="form-control @error('fecha_recibe') is-invalid @enderror" name="fecha_recibe" type="date" id="fecha_recibe" value="{{ $fecha_actual}}">
+                            @error('fecha_recibe')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

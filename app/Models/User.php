@@ -54,6 +54,9 @@ class User extends Authenticatable
     public function dependencia(){
         return $this->belongsTo(Dependencia::class, 'area');
     }
+    public function planillas(){
+        return $this->belongsToMany(Planilla::class);
+    }
     /**
      * The attributes that should be cast to native types.
      *

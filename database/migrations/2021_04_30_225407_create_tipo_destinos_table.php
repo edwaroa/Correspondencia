@@ -16,7 +16,6 @@ class CreateTipoDestinosTable extends Migration
         Schema::create('tipo_destinos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('descripcion');
             $table->timestamps();
         });
     }

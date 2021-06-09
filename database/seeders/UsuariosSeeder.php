@@ -43,5 +43,18 @@ class UsuariosSeeder extends Seeder
             'email' => 'edwaroa10@gmail.com',
             'password' => Hash::make('123456789')
         ]);
+
+        $user = User::create([
+            'tipo_documento' => 'Cedula de Ciudadanía',
+            'documento' => '1098811488',
+            'nombre' => 'Agustin',
+            'apellido' => 'Torres',
+            'iniciales' => 'AGT',
+            'rol_id' => 1,
+            'area' => 1,
+            'imagen' => 132,
+            'email' => 'agustin@gmail.com',
+            'password' => Hash::make('123456789')
+        ]);
     }
 }

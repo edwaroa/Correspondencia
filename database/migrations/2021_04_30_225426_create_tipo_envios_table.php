@@ -16,7 +16,6 @@ class CreateTipoEnviosTable extends Migration
         Schema::create('tipo_envios', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('descripcion');
             $table->timestamps();
         });
     }

@@ -6,6 +6,9 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Planilla;
 use App\Models\Dependencia;
+use App\Models\TipoPlanilla;
+use App\Models\TipoDestino;
+use App\Models\TipoEnvio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -29,10 +32,13 @@ class PlanillaController extends Controller
      */
     public function create()
     {
-        $usuarios=User::all(['id','nombre']);
+        $usuarios=User::all(['id','nombre','apellido']);
         $dependencias=Dependencia::all(['id','nombre']);
+        $tipoplanillas=TipoPlanilla::all(['id','nombre']);
+        $tipodestinos=TipoDestino::all(['id','nombre']);
+        $tipoenvios=TipoEnvio::all(['id','nombre']);
         $fecha_actual=Carbon::now()->format('d-m-Y');
-        return view('planillas.create',compact('dependencias','usuarios','fecha_actual'));
+        return view('planillas.create',compact('dependencias','usuarios','fecha_actual','tipoplanillas','tipoenvios','tipodestinos'));
     }
 
     /**
@@ -44,30 +50,51 @@ class PlanillaController extends Controller
     public function store(Request $request)
     {
         $data=request()->validate([
-            'tipo_documento'=>'required',
-            'documento'=>'required|string|max:50',
-            'nombre'=>'required|string|max:50',
-            'apellido'=>'required|string|max:50',
-            'iniciales'=>'required|string|min:3|max:8',
-            'rol'=>'required',
-            'area'=>'required',
-            'imagen'=>'required|image',
-            'email'=>'required|email|unique:users',
-            'password'=>'required','min:8','max:12',
+            'numero_planilla'=>'required',
+            'id_dependencia'=>'required',
+            'tipo_envio'=>'required',
+            'tipo_planilla'=>'required',
+            'tipo_destino'=>'required',
+            'autoridad_destino'=>'required|string|min:3|max:50',
+            'contenido_destino'=>'required|string|min:3',
+            'direccion'=>'required|string',
+            'ciudad'=>'required|string',
+            'departamento'=>'required|string',
+            'peso'=>'required',
+            'cantidad'=>'required',
+            'valor_declarado'=>'required',
+            'seguro'=>'required',
+            'valor_total'=>'required',
+            'usuario_entrega'=>'required',
+            'fecha_entrega'=>'required',
+            'usuario_recibe'=>'required',
+            'fecha_recibe'=>'required'
         ]);
 
-        $ruta_imagen= $request['imagen']->store('imagen-usuarios', 'public');
-        //Ajustar tamaño
-        DB::table('users')->insert([
-            'tipo_documento'=>$data['tipo_documento'],
-            'documento'=>$data['documento'],
-            'nombre'=>$data['nombre'],
-            'apellido'=>$data['apellido'],
-            'iniciales'=>$data['iniciales'],
-            'rol_id'=>$data['rol'],
-            'area'=>$data['area'],
-            'imagen'=>$ruta_imagen,
-            'email' => $data['email'],
+        DB::table('planillas')->insert([
+            'numero_planilla'=>$data['numero_planilla'],
+            'id_dependencia'=>$data['id_dependencia'],
+            'tipo_envio'=>$data['tipo_envio'],
+            'tipo_planilla'=>$data['tipo_planilla'],
+            'tipo_destino'=>$data['tipo_destino'],
+            'autoridad_destino'=>$data['autoridad_destino'],
+            'contenido_destino'=>$data['contenido_destino'],
+            'direccion' => $data['direccion'],
+            'ciudad' => $data['ciudad'],
+            'departamento' => $data['departamento'],
+            'peso' => $data['peso'],
+            'cantidad' => $data['cantidad'],
+            'valor_declarado' => $data['valor_declarado'],
+            'seguro' => $data['seguro'],
+            'valor_total' => $data['valor_total'],
+            'usuario_entrega' => $data['usuario_entrega'],
+            'fecha_entrega' => $data['fecha_entrega'],
+            'usuario_recibe' => $data['usuario_recibe'],
+            'fecha_recibe' => $data['fecha_recibe'],
+            'recibido'=>'Si',
+            'liquidado' =>'Si',
+            'impreso'=>'Si',
+            'fecha_impreso'=>Carbon::now()
         ]);
         return redirect()->action([PlanillaController::class, 'index']);
     }
@@ -80,7 +107,7 @@ class PlanillaController extends Controller
      */
     public function show(Planilla $planilla)
     {
-        //
+        return view('planillas.show', compact('planilla'));
     }
 
     /**
