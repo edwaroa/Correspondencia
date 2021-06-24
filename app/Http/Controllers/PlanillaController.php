@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Planilla;
-use App\Models\Dependencia;
-use App\Models\TipoPlanilla;
-use App\Models\TipoDestino;
 use App\Models\TipoEnvio;
+use App\Models\Dependencia;
+use App\Models\TipoDestino;
+use App\Models\TipoPlanilla;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PlanillaController extends Controller
 {
@@ -50,7 +51,7 @@ class PlanillaController extends Controller
     public function store(Request $request)
     {
         $data=request()->validate([
-            'numero_planilla'=>'required',
+            'numero_planilla'=>'required|unique:planilla,numero_planilla',
             'id_dependencia'=>'required',
             'tipo_envio'=>'required',
             'tipo_planilla'=>'required',
@@ -87,6 +88,7 @@ class PlanillaController extends Controller
             'valor_declarado' => $data['valor_declarado'],
             'seguro' => $data['seguro'],
             'valor_total' => $data['valor_total'],
+            'numero_planilla'=>$data['numero_planilla'],
             'usuario_entrega' => $data['usuario_entrega'],
             'fecha_entrega' => $data['fecha_entrega'],
             'usuario_recibe' => $data['usuario_recibe'],
@@ -118,7 +120,19 @@ class PlanillaController extends Controller
      */
     public function edit(Planilla $planilla)
     {
-        //
+        if(Auth::user()->rol->nombre == 'Super Admin') {
+            // Trayendo el id y el nombre de todos los roles
+            $dependencias=Dependencia::all(['id','nombre']);
+            $usuarios=User::all(['id','nombre','apellido']);
+            $dependencias=Dependencia::all(['id','nombre']);
+            $tipoplanillas=TipoPlanilla::all(['id','nombre']);
+            $tipodestinos=TipoDestino::all(['id','nombre']);
+            $tipoenvios=TipoEnvio::all(['id','nombre']);
+            $fecha_actual=Carbon::now()->format('d-m-Y');
+            return view('planillas.edit',compact('planilla','dependencias','usuarios','fecha_actual','tipoplanillas','tipoenvios','tipodestinos'));
+        }else {
+            return redirect()->action([UsuarioController::class, 'index']);
+        }
     }
 
     /**

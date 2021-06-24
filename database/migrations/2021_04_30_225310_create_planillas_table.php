@@ -15,11 +15,11 @@ class CreatePlanillasTable extends Migration
     {
         Schema::create('planillas', function (Blueprint $table) {
             $table->id();
-            $table->string('numero_planilla');
+            $table->string('numero_planilla')->unique();
             $table->foreignId('id_dependencia')->references('id')->on('dependencias')->nullable();
             $table->foreignId('tipo_planilla')->references('id')->on('tipo_planillas')->nullable();
-            $table->string('tipo_envio')->references('id')->on('tipo_envios')->nullable();
-            $table->string('tipo_destino')->references('id')->on('tipo_destinos')->nullable();
+            $table->foreignId('tipo_envio')->references('id')->on('tipo_envios')->nullable();
+            $table->foreignId('tipo_destino')->references('id')->on('tipo_destinos')->nullable();
             $table->string('autoridad_destino');
             $table->text('contenido_destino');
             $table->string('direccion');
@@ -30,9 +30,9 @@ class CreatePlanillasTable extends Migration
             $table->string('valor_declarado');
             $table->string('seguro');
             $table->string('valor_total');
-            $table->string('usuario_entrega')->references('id')->on('users')->nullable();
+            $table->foreignId('usuario_entrega')->references('id')->on('users')->nullable();
             $table->date('fecha_entrega');
-            $table->string('usuario_recibe')->references('id')->on('users')->nullable();
+            $table->foreignId('usuario_recibe')->references('id')->on('users')->nullable();
             $table->date('fecha_recibe');
             $table->string('recibido');
             $table->string('liquidado');
