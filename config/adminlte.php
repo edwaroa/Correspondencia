@@ -14,8 +14,8 @@ return [
     |
     */
 
-    'title' => '',
-    'title_prefix' => 'Correspondencia ',
+    'title' => 'Correspondencia',
+    'title_prefix' => '',
     'title_postfix' => '',
 
     /*
@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'use_ico_only' => true,
+    'use_ico_only' => false,
     'use_full_favicon' => false,
 
     /*
@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => '<b>Correspondencia</b>ML',
-    'logo_img' => 'vendor/adminlte/dist/img/LogoCorrespondencia.jpg',
+    'logo' => '<b>Admin</b>LTE',
+    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Correspondencia',
+    'logo_img_alt' => 'AdminLTE',
 
     /*
     |--------------------------------------------------------------------------
@@ -65,11 +65,11 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => true,
+    'usermenu_header' => false,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => true,
-    'usermenu_desc' => true,
-    'usermenu_profile_url' => true,
+    'usermenu_image' => false,
+    'usermenu_desc' => false,
+    'usermenu_profile_url' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -85,9 +85,10 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => true,
-    'layout_fixed_navbar' => true,
+    'layout_fixed_sidebar' => null,
+    'layout_fixed_navbar' => null,
     'layout_fixed_footer' => null,
+    'layout_dark_mode' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -144,8 +145,8 @@ return [
     |
     */
 
-    'sidebar_mini' => true,
-    'sidebar_collapse' => true,
+    'sidebar_mini' => 'lg',
+    'sidebar_collapse' => false,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
@@ -224,16 +225,21 @@ return [
     */
 
     'menu' => [
+        // Navbar items:
         [
-            'text' => 'Buscar',
-            'search' => false,
-            'topnav' => true,
+            'type'         => 'navbar-search',
+            'text'         => 'search',
+            'topnav_right' => true,
         ],
         [
-            'text' => 'Mensajes',
-            'url' => '#',
+            'type'         => 'fullscreen-widget',
             'topnav_right' => true,
-            'icon' => 'fa fa-envelope',
+        ],
+
+        // Sidebar items:
+        [
+            'type' => 'sidebar-menu-search',
+            'text' => 'search',
         ],
         [
             'text' => 'blog',
@@ -241,65 +247,22 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text' => 'Inicio',
-            'route'  => 'home',
-            'icon' => 'fas fa-fw fa-home'
+            'text'        => 'pages',
+            'url'         => 'admin/pages',
+            'icon'        => 'far fa-fw fa-file',
+            'label'       => 4,
+            'label_color' => 'success',
         ],
-        // [
-        //     'text'        => 'pages',
-        //     'url'         => 'admin/pages',
-        //     'icon'        => 'far fa-fw fa-file',
-        //     'label'       => 4,
-        //     'label_color' => 'success',
-        // ],
-        ['header' => 'Menú Principal'],
+        ['header' => 'account_settings'],
         [
-            'text'=> 'Usuarios',
-            'icon' => 'fa fa-users',
-            'submenu' =>[
-                [
-                'text' => 'Listar',
-                'icon' => 'fa fa-list',
-                'route' => 'usuarios.index',
-                ],
-                [
-                'text' => 'Crear',
-                'icon' => 'fa fa-user-plus',
-                'route' => 'usuarios.create',
-                ]
-            ],
+            'text' => 'profile',
+            'url'  => 'admin/settings',
+            'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text'=> 'Dependencias',
-            'icon' => 'fa fa-suitcase',
-            'submenu' =>[
-                [
-                'text' => 'Listar',
-                'icon' => 'fa fa-list',
-                'route' => 'dependencias.index',
-                ],
-                [
-                'text' => 'Crear',
-                'icon' => 'fa fa-plus',
-                'route' => 'dependencias.create',
-                ]
-            ],
-        ],
-        [
-            'text'=> 'Planillas',
-            'icon' => 'fa fa-list-alt',
-            'submenu' =>[
-                [
-                'text' => 'Listar',
-                'icon' => 'fa fa-list',
-                'route' => 'planillas.index',
-                ],
-                [
-                'text' => 'Crear',
-                'icon' => 'fa fa-plus',
-                'route' => 'planillas.create',
-                ]
-            ],
+            'text' => 'change_password',
+            'url'  => 'admin/settings',
+            'icon' => 'fas fa-fw fa-lock',
         ],
         [
             'text'    => 'multilevel',
@@ -339,22 +302,22 @@ return [
                 ],
             ],
         ],
-        // ['header' => 'labels'],
-        // [
-        //     'text'       => 'important',
-        //     'icon_color' => 'red',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'warning',
-        //     'icon_color' => 'yellow',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'information',
-        //     'icon_color' => 'cyan',
-        //     'url'        => '#',
-        // ],
+        ['header' => 'labels'],
+        [
+            'text'       => 'important',
+            'icon_color' => 'red',
+            'url'        => '#',
+        ],
+        [
+            'text'       => 'warning',
+            'icon_color' => 'yellow',
+            'url'        => '#',
+        ],
+        [
+            'text'       => 'information',
+            'icon_color' => 'cyan',
+            'url'        => '#',
+        ],
     ],
 
     /*
@@ -387,7 +350,7 @@ return [
     | Here we can modify the plugins used inside the admin panel.
     |
     | For detailed instructions you can look the plugins section here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
+    | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Plugins-Configuration
     |
     */
 
